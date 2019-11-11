@@ -1,0 +1,11 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@serverless-chrome/lambda": "^1.0.0-55",
+    "chrome-launcher": "^0.12.0",
+    "chrome-remote-interface": "^0.28.0"
+  }
+}
