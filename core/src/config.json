@@ -1,0 +1,5 @@
+{
+  "MAX_RETRIES": 3,
+  "RETRY_DELAY": 3000,
+  "BROWSERLESS_URL": "ws://localhost:3000"
+}
