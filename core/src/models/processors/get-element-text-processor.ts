@@ -1,7 +1,7 @@
 import { Browser, ElementHandle } from 'puppeteer-core';
 import { injectable, inject } from 'inversify';
 
-import { IProcessor, IDataPersister } from "../../interfaces";
+import { IProcessor, IDataStorage } from "../../interfaces";
 import Instruction from "../instruction";
 import { Registrations, SelectorTypes } from '../../constants';
 import BrowserHelper from '../../utils/browser-helper';
@@ -9,14 +9,14 @@ import BrowserHelper from '../../utils/browser-helper';
 @injectable()
 export default class GetElementTextProcessor implements IProcessor {
   private _browser: Browser;
-  private _dataPersister: IDataPersister<string>;
+  private _dataStorage: IDataStorage<string>;
 
   constructor(
       @inject(Registrations.Browser) browser: Browser,
-      @inject(Registrations.IDataPersister) dataPersister: IDataPersister<string>
+      @inject(Registrations.IDataStorage) dataStorage: IDataStorage<string>
     ) {
     this._browser = browser
-    this._dataPersister = dataPersister
+    this._dataStorage = dataStorage
   }
 
   async Execute(instruction: Instruction): Promise<void> {
@@ -40,6 +40,8 @@ export default class GetElementTextProcessor implements IProcessor {
       text = ''
     }
 
-    this._dataPersister.Persist(text)
+    if (instruction.resultStore && instruction.resultStore.variableName) {
+      this._dataStorage.Store(instruction.resultStore.variableName, text)
+    }
   }
 }

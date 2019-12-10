@@ -11,13 +11,14 @@ export const Registrations = {
   IProcessorFactory: "IProcessorFactory",
   IProcessor: "IProcessor",
   IMainProcessor: "IMainProcessor",
-  IDataPersister: "IDataPersister"
+  IDataStorage: "IDataStorage"
 }
 
 // Instruction opcodes
 export const Opcodes = {
   loadPage: "LOADPAGE",
-  getText: "GETTEXT"
+  getText: "GETTEXT",
+  printVariable: "PRINTVAR"
 }
 
 export const SelectorTypes = {

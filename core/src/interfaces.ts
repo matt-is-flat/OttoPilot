@@ -16,6 +16,7 @@ export interface IProcessorFactory {
   Create(opcode: string) : IProcessor;
 }
 
-export interface IDataPersister<T> {
-  Persist(data: T) : void;
+export interface IDataStorage<T> {
+  Store(key: string, data: T) : void;
+  Retrieve(key: string) : T;
 }
