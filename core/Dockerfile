@@ -7,6 +7,6 @@ COPY lib ./lib
 
 ##
 # Add any extra required dependencies here:
-RUN npm install puppeteer-core
+RUN npm install puppeteer-core inversify reflect-metadata
 
 CMD [ "node", "./lib/index.js" ]

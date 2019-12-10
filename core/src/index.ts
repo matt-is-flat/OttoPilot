@@ -1,26 +1,33 @@
 import { fork } from 'child_process';
 import MainProcessor from './main-processor';
-import ExceptionMessages from './constants/exception-messages';
+import { ExceptionMessages } from './constants';
+import Config from './config.json';
 
-async function Main() {
+async function main() {
   let cleanup = () => {}
 
-  if (process.env.ENV !== 'DEV') {
+  if (Config.ENV !== 'DEV') {
     let browserlessProcess = fork('./build/index.js');
     cleanup = () => { browserlessProcess.kill() }
   }
 
   let mainProcessor = await MainProcessor.TryInitialise();
 
-  if (mainProcessor) {
-    while(mainProcessor.Execute()) {
-      await new Promise(r => setTimeout(r, 0))
-    }
-  } else {
-    throw new Error(ExceptionMessages.MainProcessorInitFault)
+  if (!mainProcessor) {
+    throw new Error(ExceptionMessages.MainProcessorInitFault);
+  }
+
+  while(await mainProcessor.Execute()) {
+    await new Promise(r => setTimeout(r, 0))
   }
 
   cleanup()
 }
 
-Main();
+var startTime = Date.now()
+
+main().then(() => {
+  var totalTime = Date.now() - startTime
+  console.log(`Total execution time: ${totalTime}ms`)
+  process.exit()
+})

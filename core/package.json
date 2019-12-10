@@ -15,7 +15,9 @@
   "dependencies": {
     "@types/puppeteer-core": "^2.0.0",
     "axios": "^0.19.0",
-    "puppeteer-core": "^2.0.0"
+    "inversify": "^5.0.1",
+    "puppeteer-core": "^2.0.0",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/node": "^12.12.14",
