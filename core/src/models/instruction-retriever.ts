@@ -7,6 +7,8 @@ export default class InstructionRetriever implements IInstructionRetriever {
   GetNextInstruction() : Instruction {
     var result = new Instruction();
 
+    // Fetch next instruction from DB
+
     return result;
   }
 }

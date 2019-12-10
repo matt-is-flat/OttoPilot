@@ -4,14 +4,16 @@ import "reflect-metadata";
 import Config from './config.json';
 import { Registrations, Opcodes } from './constants';
 import { IMainProcessor, IInstructionRetriever, IProcessor, IProcessorFactory, IDataStorage } from './interfaces';
-import MainProcessor from './main-processor';
-import InstructionRetriever from './models/instruction-retriever';
-import MockInstructionRetriever from './mock/mock-instruction-retriever';
-import LoadPageProcessor from './models/processors/load-page-processor';
 import ProcessorFactory from './models/processor-factory';
-import GetElementTextProcessor from './models/processors/get-element-text-processor';
+import InstructionRetriever from './models/instruction-retriever';
 import LocalDataStorage from './models/data-storage/local-data-storage';
+import MockInstructionRetriever from './mock/mock-instruction-retriever';
+
+import MainProcessor from './main-processor';
+import LoadPageProcessor from './models/processors/load-page-processor';
+import GetElementTextProcessor from './models/processors/get-element-text-processor';
 import PrintVariableProcessor from './models/processors/print-variable-processor.js';
+import ClickElementProcessor from './models/processors/click-element-processor.js';
 
 export default class IocConfiguration {
   ConfigureIoc() : Container {
@@ -44,6 +46,7 @@ export default class IocConfiguration {
     container.bind<IProcessor>(Registrations.IProcessor).to(LoadPageProcessor).whenTargetNamed(Opcodes.loadPage)
     container.bind<IProcessor>(Registrations.IProcessor).to(GetElementTextProcessor).whenTargetNamed(Opcodes.getText)
     container.bind<IProcessor>(Registrations.IProcessor).to(PrintVariableProcessor).whenTargetNamed(Opcodes.printVariable)
+    container.bind<IProcessor>(Registrations.IProcessor).to(ClickElementProcessor).whenTargetNamed(Opcodes.clickElement)
   }
 
   private RegisterDataPersisters(container: Container) : void {

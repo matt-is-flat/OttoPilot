@@ -18,7 +18,8 @@ export const Registrations = {
 export const Opcodes = {
   loadPage: "LOADPAGE",
   getText: "GETTEXT",
-  printVariable: "PRINTVAR"
+  printVariable: "PRINTVAR",
+  clickElement: "CLICK"
 }
 
 export const SelectorTypes = {
