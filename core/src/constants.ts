@@ -14,14 +14,6 @@ export const Registrations = {
   IDataStorage: "IDataStorage"
 }
 
-// Instruction opcodes
-export const Opcodes = {
-  loadPage: "LOADPAGE",
-  getText: "GETTEXT",
-  printVariable: "PRINTVAR",
-  clickElement: "CLICK"
-}
-
 export const SelectorTypes = {
   id: "id",
   class: "class",

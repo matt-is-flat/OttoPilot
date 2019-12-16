@@ -2,7 +2,8 @@ import { Container } from 'inversify';
 import "reflect-metadata";
 
 import Config from './config.json';
-import { Registrations, Opcodes } from './constants';
+import { Registrations } from './constants';
+import { Opcodes } from '../../common/constants';
 import { IMainProcessor, IInstructionRetriever, IProcessor, IProcessorFactory, IDataStorage } from './interfaces';
 import ProcessorFactory from './models/processor-factory';
 import InstructionRetriever from './models/instruction-retriever';
