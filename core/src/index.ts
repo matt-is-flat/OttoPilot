@@ -1,12 +1,12 @@
 import { fork } from 'child_process';
-import MainProcessor from './main-processor';
+import MainProcessor from './models/main-processor';
 import { ExceptionMessages } from './constants';
 import Config from './config.json';
 
 async function main() {
   let cleanup = () => {}
 
-  if (Config.ENV !== 'DEV') {
+  if (Config.LAUNCH_CHROME) {
     let browserlessProcess = fork('./build/index.js');
     cleanup = () => { browserlessProcess.kill() }
   }
@@ -24,10 +24,4 @@ async function main() {
   cleanup()
 }
 
-var startTime = Date.now()
-
-main().then(() => {
-  var totalTime = Date.now() - startTime
-  console.log(`Total execution time: ${totalTime}ms`)
-  process.exit()
-})
+main().then(() => { process.exit() })

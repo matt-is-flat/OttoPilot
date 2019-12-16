@@ -1,10 +1,10 @@
 import puppeteer, { Browser } from 'puppeteer-core';
 import { injectable, inject } from 'inversify';
 
-import Config from './config.json';
-import IocConfiguration from './ioc-configuration';
-import { IMainProcessor, IInstructionRetriever, IProcessorFactory } from './interfaces';
-import { Registrations } from './constants';
+import Config from '../config.json';
+import IocConfiguration from '../ioc-configuration';
+import { IMainProcessor, IInstructionRetriever, IProcessorFactory } from '../interfaces';
+import { Registrations } from '../constants';
 
 @injectable()
 export default class MainProcessor implements IMainProcessor {

@@ -10,7 +10,7 @@ import InstructionRetriever from './models/instruction-retriever';
 import LocalDataStorage from './models/data-storage/local-data-storage';
 import MockInstructionRetriever from './mock/mock-instruction-retriever';
 
-import MainProcessor from './main-processor';
+import MainProcessor from './models/main-processor';
 import LoadPageProcessor from './models/processors/load-page-processor';
 import GetElementTextProcessor from './models/processors/get-element-text-processor';
 import PrintVariableProcessor from './models/processors/print-variable-processor.js';
