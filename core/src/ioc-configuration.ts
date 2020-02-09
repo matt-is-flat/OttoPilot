@@ -13,8 +13,9 @@ import MockInstructionRetriever from './mock/mock-instruction-retriever';
 import MainProcessor from './models/main-processor';
 import LoadPageProcessor from './models/processors/load-page-processor';
 import GetElementTextProcessor from './models/processors/get-element-text-processor';
-import PrintVariableProcessor from './models/processors/print-variable-processor.js';
-import ClickElementProcessor from './models/processors/click-element-processor.js';
+import PrintVariableProcessor from './models/processors/print-variable-processor';
+import ClickElementProcessor from './models/processors/click-element-processor';
+import TypeKeysProcessor from './models/processors/type-keys-processor';
 
 export default class IocConfiguration {
   ConfigureIoc() : Container {
@@ -48,6 +49,7 @@ export default class IocConfiguration {
     container.bind<IProcessor>(Registrations.IProcessor).to(GetElementTextProcessor).whenTargetNamed(Opcodes.getText)
     container.bind<IProcessor>(Registrations.IProcessor).to(PrintVariableProcessor).whenTargetNamed(Opcodes.printVariable)
     container.bind<IProcessor>(Registrations.IProcessor).to(ClickElementProcessor).whenTargetNamed(Opcodes.clickElement)
+    container.bind<IProcessor>(Registrations.IProcessor).to(TypeKeysProcessor).whenTargetNamed(Opcodes.typeKeys)
   }
 
   private RegisterDataPersisters(container: Container) : void {
