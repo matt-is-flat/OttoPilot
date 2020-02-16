@@ -1,0 +1,1 @@
+aws dynamodb create-table --cli-input-json file://stages.json --endpoint-url http://localhost:8000 

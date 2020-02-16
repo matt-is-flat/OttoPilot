@@ -1,9 +1,9 @@
 service:
   name: api
 
-# Add the serverless-webpack plugin
 plugins:
   - serverless-webpack
+  - serverless-offline
 
 provider:
   name: aws
@@ -17,16 +17,24 @@ provider:
         - dynamodb:GetItem
         - dynamodb:PutItem
       Resource: "*"
+  environment:
+    stagesTableName: ${self:custom.stagesTableName}
+    ddbRegion: 'localhost'
+    ddbEndpoint: 'http://localhost:8000'
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  stagesTableName: ${self:custom.stage}-stages
 
 functions:
   ottopilot-api-savestage:
-    handler: handler.SaveStageHandler
+    handler: src/handlers/stage-post-handler.SaveStageHandler
     events:
       - http:
           method: post
           path: stages
   ottopilot-api-getstages:
-    handler: handler.GetStagesHandler
+    handler: src/handlers/stage-get-handler.GetStagesHandler
     events:
       - http:
           method: get
@@ -34,19 +42,17 @@ functions:
 
 resources:
   Resources:
-    TodosDynamoDbTable:
+    StagesDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
+        TableName: ${self:custom.stagesTableName}
         AttributeDefinitions:
-          -
-            AttributeName: id
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: id
+          - AttributeName: id
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: dev_stages
