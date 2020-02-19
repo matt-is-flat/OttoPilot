@@ -1,6 +1,6 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
 
-import ValidationResult from "../models/validation-result";
+import { ValidationResult } from "../models/validation-result";
 
 export function InvalidModelResponse(validationResult: ValidationResult): APIGatewayProxyResult {
   return {

@@ -3,10 +3,16 @@
     "lib": [
       "es2017"
     ],
+    "baseUrl": "src",
+    "paths": {
+      "@common/*": ["../../common/*"],
+      "@utils/*": ["./utils/*"]
+    },
     "moduleResolution": "node",
     "sourceMap": true,
     "target": "es2017",
-    "outDir": "lib"
+    "outDir": "lib",
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules"

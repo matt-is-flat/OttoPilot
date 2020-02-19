@@ -1,8 +1,10 @@
 import { IConverter } from "../../interfaces";
-import { GetTextParameters } from "../../../../common/models/parameters";
-import { Selector } from "../../../../common/types";
+import { GetTextParameters, IStageParameters } from "@common/models/parameters";
+import { Selector } from "@common/types";
+import { injectable } from "inversify";
 
-export class RequestToGetTextParametersConverter implements IConverter<any, GetTextParameters> {
+@injectable()
+export class RequestToGetTextParametersConverter implements IConverter<any, IStageParameters> {
   Convert(input: any): GetTextParameters {
     let result: GetTextParameters = {
       selectorType: input.selectorType as Selector,

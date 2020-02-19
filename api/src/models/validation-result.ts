@@ -1,4 +1,4 @@
-export default class ValidationResult {
+export class ValidationResult {
   isValid: boolean;
   validationErrors: string[];
 }

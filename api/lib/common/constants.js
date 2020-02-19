@@ -5,7 +5,12 @@ export const Opcodes = {
     clickElement: "CLICK",
     typeKeys: "TYPEKEYS"
 };
+export const ResultCodes = {
+    saveLocal: "SAVELOCAL",
+    saveDynamo: "SAVEDDB",
+    saveTextFile: "SAVETXT"
+};
 export const TableNames = {
-    stages: "dev_stages"
+    stages: process.env.stagesTableName
 };
 //# sourceMappingURL=constants.js.map

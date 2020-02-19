@@ -1,9 +1,12 @@
-export default class Stage<TParameters, TResults> {
+import { IStageParameters } from "./parameters";
+import { IStageResults } from "./results";
+
+export default class Stage {
   id: string;
   opcode: string;
   resultCode: string;
-  parameters: TParameters;
-  resultStore: TResults;
-  createdAt: Date;
-  updatedAt: Date;
+  parameters: IStageParameters;
+  resultStore: IStageResults;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
