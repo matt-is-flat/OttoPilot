@@ -1,3 +1,3 @@
-export default class Stage {
+export class Stage {
 }
 //# sourceMappingURL=stage.js.map

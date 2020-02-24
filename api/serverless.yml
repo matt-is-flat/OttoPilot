@@ -19,14 +19,37 @@ provider:
       Resource: "*"
   environment:
     stagesTableName: ${self:custom.stagesTableName}
+    flowsTableName: ${self:custom.flowsTableName}
     ddbRegion: 'localhost'
     ddbEndpoint: 'http://localhost:8000'
 
 custom:
   stage: ${opt:stage, self:provider.stage}
   stagesTableName: ${self:custom.stage}-stages
+  flowsTableName: ${self:custom.stage}-flows
 
 functions:
+  # Flows
+  ottopilot-api-saveflow:
+    handler: src/handlers/flow-post-handler.SaveFlowHandler
+    events:
+      - http:
+          method: post
+          path: flows
+  ottopilot-api-getflows:
+    handler: src/handlers/flow-get-handler.GetFlowsHandler
+    events:
+      - http:
+          method: get
+          path: flows
+  ottopilot-api-deleteflow:
+    handler: src/handlers/flow-delete-handler.DeleteFlowHandler
+    events:
+      - http:
+          method: delete
+          path: flows
+  
+  # Stages
   ottopilot-api-savestage:
     handler: src/handlers/stage-post-handler.SaveStageHandler
     events:
@@ -38,6 +61,12 @@ functions:
     events:
       - http:
           method: get
+          path: stages
+  ottopilot-api-deletestage:
+    handler: src/handlers/stage-delete-handler.DeleteStagesHandler
+    events:
+      - http:
+          method: delete
           path: stages
 
 resources:

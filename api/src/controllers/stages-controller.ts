@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 
-import Stage from '@common/models/stage';
-import DdbClient from '../utils/ddb-client';
+import { Stage } from '@common/models/stage';
+import { DdbClient } from '../utils/ddb-client';
 import { TableNames } from '../../../common/constants';
 import { ExceptionMessages } from '../constants';
 
@@ -9,6 +9,7 @@ const dynamoDb = DdbClient();
 
 /**
  * Creates a new stage
+ * @param {Stage} stage The stage to create
  */
 export async function CreateStage(stage: Stage): Promise<void> {
   const timestamp = new Date().getTime();
@@ -58,6 +59,7 @@ export async function UpdateStage(stage: Stage): Promise<void> {
 
 /**
  * Lists all stages
+ * @returns {Stage[]} A list of all stages
  */
 export async function GetStages(): Promise<Stage[]> {
   const params = {
@@ -72,7 +74,8 @@ export async function GetStages(): Promise<Stage[]> {
 
 /**
  * Gets a single stage by it's key id
- * @param itemId The Id of the item to retrieve
+ * @param {string} itemId The ID of the item to retrieve
+ * @returns {Stage} The stage with the provided Id
  */
 export async function GetStage(itemId: string): Promise<Stage> {
   const params = {
@@ -80,9 +83,24 @@ export async function GetStage(itemId: string): Promise<Stage> {
     Key: {
       id: itemId
     }
-  }
+  };
 
   let result = await dynamoDb.get(params).promise();
 
   return result.Item as Stage;
+}
+
+/**
+ * Deletes a stage by it's key id
+ * @param {string} itemId THe ID of the item to retrieve
+ */
+export async function DeleteStage(itemId: string): Promise<void> {
+  const params = {
+    TableName: TableNames.stages,
+    Key: {
+      id: itemId
+    }
+  };
+
+  await dynamoDb.delete(params).promise();
 }

@@ -1,14 +1,16 @@
 import { Container } from 'inversify';
 import "reflect-metadata";
 
-import { Registrations } from './constants';
+import { Registrations, FlowRegistration } from './constants';
 import { Opcodes, ResultCodes } from '../../common/constants';
-import { GetTextParametersValidator } from './models/validators/parameter-validators';
-import { RequestToGetTextParametersConverter } from './models/converters/parameter-converters';
+import { FlowValidator } from './models/validators/flow-validator';
+import { GetTextParametersValidator, LoadPageParametersValidator, PrintVariableParametersValidator } from './models/validators/parameter-validators';
+import { RequestToGetTextParametersConverter, RequestToLoadPageParametersConverter, RequestToPrintVariableParametersConverter } from './models/converters/parameter-converters';
 import { SaveLocallyResultParametersValidator } from './models/validators/result-parameter-validators';
 import { RequestToStoreLocallyResultParametersConverter } from './models/converters/result-parameter-converters';
+import { RequestToFlowConverter } from './models/converters/request-to-flow-converter';
 
-export default class IocConfiguration {
+export class IocConfiguration {
   ConfigureIoc(): Container {
     let container = new Container();
 
@@ -19,14 +21,20 @@ export default class IocConfiguration {
   }
 
   private RegisterValidators(container: Container): void {
+    container.bind(Registrations.IValidator).to(FlowValidator).whenTargetNamed(FlowRegistration);
+    container.bind(Registrations.IValidator).to(LoadPageParametersValidator).whenTargetNamed(Opcodes.loadPage);
     container.bind(Registrations.IValidator).to(GetTextParametersValidator).whenTargetNamed(Opcodes.getText);
-    
+    container.bind(Registrations.IValidator).to(PrintVariableParametersValidator).whenTargetNamed(Opcodes.printVariable);
+
     container.bind(Registrations.IValidator).to(SaveLocallyResultParametersValidator).whenTargetNamed(ResultCodes.saveLocal);
   }
 
   private RegisterConverters(container: Container): void {
+    container.bind(Registrations.IRequestToFlowConverter).to(RequestToFlowConverter)
     container.bind(Registrations.IRequestToStageParametersConverter).to(RequestToGetTextParametersConverter).whenTargetNamed(Opcodes.getText);
-  
+    container.bind(Registrations.IRequestToStageParametersConverter).to(RequestToLoadPageParametersConverter).whenTargetNamed(Opcodes.loadPage);
+    container.bind(Registrations.IRequestToStageParametersConverter).to(RequestToPrintVariableParametersConverter).whenTargetNamed(Opcodes.printVariable);
+
     container.bind(Registrations.IRequestToStageResultsConverter).to(RequestToStoreLocallyResultParametersConverter).whenTargetNamed(ResultCodes.saveLocal);
   }
 }

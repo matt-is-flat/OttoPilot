@@ -5,6 +5,20 @@ import { ValidationErrors } from '../../constants';
 import { Selector } from '../../../../common/types';
 
 @injectable()
+export class LoadPageParametersValidator implements IValidator<any> {
+  Validate(input: any): ValidationResult {
+    let result: ValidationResult = { isValid: true, validationErrors: [] };
+
+    if (!input.pageUrl || typeof(input.pageUrl) !== 'string') {
+      result.isValid = false;
+      result.validationErrors.push(ValidationErrors.LoadPage.PageUrl);
+    }
+
+    return result;
+  }
+}
+
+@injectable()
 export class GetTextParametersValidator implements IValidator<any> {
   Validate(input: any): ValidationResult {
     let result: ValidationResult = { isValid: true, validationErrors: [] };
@@ -17,6 +31,20 @@ export class GetTextParametersValidator implements IValidator<any> {
     if (!input.selectorValue || typeof(input.selectorValue) !== 'string') {
       result.isValid = false;
       result.validationErrors.push(ValidationErrors.GetText.BadSelectorValue);
+    }
+
+    return result;
+  }
+}
+
+@injectable()
+export class PrintVariableParametersValidator implements IValidator<any> {
+  Validate(input: any): ValidationResult {
+    let result: ValidationResult = { isValid: true, validationErrors: [] };
+
+    if (!input.variableName || typeof(input.variableName) !== 'string') {
+      result.isValid = false;
+      result.validationErrors.push(ValidationErrors.Common.BadVariableName);
     }
 
     return result;

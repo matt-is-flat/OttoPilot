@@ -11,6 +11,7 @@ export const ResultCodes = {
     saveTextFile: "SAVETXT"
 };
 export const TableNames = {
-    stages: process.env.stagesTableName
+    stages: process.env.stagesTableName,
+    flows: process.env.flowsTableName
 };
 //# sourceMappingURL=constants.js.map

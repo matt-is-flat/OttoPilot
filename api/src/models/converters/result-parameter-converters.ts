@@ -5,7 +5,6 @@ import { injectable } from 'inversify';
 @injectable()
 export class RequestToStoreLocallyResultParametersConverter implements IConverter<any, IStageResults> {
   public Convert(input: any): SaveLocallyResultParameters {
-    console.log("Converting result")
     let result: SaveLocallyResultParameters = {
       variableName: input.variableName
     };
