@@ -1,7 +1,7 @@
 import { IStageParameters } from "./parameters";
 import { IStageResults } from "./results";
 
-export default class Stage {
+export class Stage {
   id: string;
   opcode: string;
   resultCode: string;

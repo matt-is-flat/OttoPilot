@@ -13,5 +13,6 @@ export const ResultCodes = {
 }
 
 export const TableNames = {
-  stages: process.env.stagesTableName
+  stages: process.env.stagesTableName,
+  flows: process.env.flowsTableName
 }
