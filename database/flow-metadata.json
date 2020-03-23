@@ -1,0 +1,13 @@
+{
+    "TableName": "flow-metadata",
+    "KeySchema": [
+      { "AttributeName": "flowId", "KeyType": "HASH" }
+    ],
+    "AttributeDefinitions": [
+      { "AttributeName": "flowId", "AttributeType": "S" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  }

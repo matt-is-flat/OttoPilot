@@ -1,0 +1,15 @@
+{
+    "TableName": "flow-stages",
+    "KeySchema": [
+      { "AttributeName": "flowId", "KeyType": "HASH" },
+      { "AttributeName": "order", "KeyType": "RANGE" }
+    ],
+    "AttributeDefinitions": [
+      { "AttributeName": "flowId", "AttributeType": "S" },
+      { "AttributeName": "order", "AttributeType": "S" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  }

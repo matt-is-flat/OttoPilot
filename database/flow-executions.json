@@ -1,0 +1,15 @@
+{
+    "TableName": "flow-executions",
+    "KeySchema": [
+      { "AttributeName": "flowId", "KeyType": "HASH" },
+      { "AttributeName": "startedDateTime", "KeyType": "RANGE" }
+    ],
+    "AttributeDefinitions": [
+      { "AttributeName": "flowId", "AttributeType": "S" },
+      { "AttributeName": "startedDateTime", "AttributeType": "S" }
+    ],
+    "ProvisionedThroughput": {
+      "ReadCapacityUnits": 1,
+      "WriteCapacityUnits": 1
+    }
+  }

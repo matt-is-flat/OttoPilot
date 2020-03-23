@@ -23,7 +23,7 @@ export async function CreateFlow(flow: Flow): Promise<void> {
       createdAt: timestamp,
       modifiedAt: timestamp
     }
-  }
+  };
 
   await dynamoDb.put(metadataParams).promise();
 
@@ -38,9 +38,9 @@ export async function CreateFlow(flow: Flow): Promise<void> {
         resultCode: stage.resultCode,
         resultParameters: stage.resultParameters
       }
-    }
+    };
   
-    await dynamoDb.put(flowStageParams).promise()
+    await dynamoDb.put(flowStageParams).promise();
   }
 }
 
@@ -54,7 +54,7 @@ export async function UpdateFlow(flow: Flow): Promise<void> {
   let existingRecord = await GetFlow(flow.id);
 
   if (!existingRecord) {
-    throw new Error(ExceptionMessages.ExistingFlowNotFound)
+    throw new Error(ExceptionMessages.ExistingFlowNotFound);
   }
 
   const params = {
@@ -66,9 +66,9 @@ export async function UpdateFlow(flow: Flow): Promise<void> {
       ...flow,
       updatedAt: timestamp
     }
-  }
+  };
 
-  await dynamoDb.update(params).promise()
+  await dynamoDb.update(params).promise();
 }
 
 /**
