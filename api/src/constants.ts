@@ -24,5 +24,7 @@ export const Registrations = {
   IValidator: "IValidator",
   IRequestToStageParametersConverter: "IConverter<any, IStageParameters>",
   IRequestToStageResultsConverter: "IConverter<any, IStageResults>",
-  IRequestToFlowConverter: "IConverter<any, Flow>"
+  IRequestToFlowConverter: "IConverter<any, Flow>",
+  IStageValidatorFactory: "IFactory<string, Validator<any>>",
+  IStageValidator: "IValidator<any>"
 };

@@ -3,13 +3,15 @@ import { injectable, inject } from 'inversify';
 
 import Config from '../config.json';
 import IocConfiguration from '../ioc-configuration';
-import { IMainProcessor, IInstructionRetriever, IProcessorFactory } from '../interfaces';
+import { IMainProcessor, IInstructionRetriever, IProcessorFactory, IDataPersister } from '../interfaces';
 import { Registrations } from '../constants';
+import { FlowExecution } from './flow-execution';
 
 @injectable()
 export default class MainProcessor implements IMainProcessor {
   private _instructionRetriever: IInstructionRetriever;
   private _processorFactory: IProcessorFactory;
+  private _flowExecutionPersister: IDataPersister<FlowExecution>
 
   constructor(
       @inject(Registrations.IInstructionRetriever) instructionRetriever: IInstructionRetriever,
@@ -55,15 +57,22 @@ export default class MainProcessor implements IMainProcessor {
    * processes the instruction.
    */
   async Execute() : Promise<boolean> {
-    let nextInstruction = this._instructionRetriever.GetNextInstruction()
+    let nextInstruction = this._instructionRetriever.GetNextInstruction();
+    let flowExecution = new FlowExecution();
 
     if (!nextInstruction) {
-      return false
+      return false;
     }
 
-    let processor = this._processorFactory.Create(nextInstruction.opcode)
-    await processor.Execute(nextInstruction)
+    let processor = this._processorFactory.Create(nextInstruction.opcode);
+
+    try {
+      await processor.Execute(nextInstruction)
+      await this._flowExecutionPersister.Save(flowExecution);
+    } catch(err) {
+      return false;
+    }
     
-    return true
+    return true;
   }
 }

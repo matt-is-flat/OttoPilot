@@ -1,7 +1,8 @@
+import { FlowMetadata } from './flow-metadata';
 import { FlowStage } from "./flow-stage";
 
 export class Flow {
   id: string;
-  name: string;
-  stages: FlowStage[]
+  metadata: FlowMetadata;
+  stages: FlowStage[];
 }

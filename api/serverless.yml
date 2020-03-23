@@ -20,6 +20,7 @@ provider:
   environment:
     stagesTableName: ${self:custom.stagesTableName}
     flowsTableName: ${self:custom.flowsTableName}
+    flowStagesTableName: ${self:custom.flowStagesTableName}
     ddbRegion: 'localhost'
     ddbEndpoint: 'http://localhost:8000'
 
@@ -27,48 +28,22 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   stagesTableName: ${self:custom.stage}-stages
   flowsTableName: ${self:custom.stage}-flows
+  flowStagesTableName: ${self:custom.stage}-flow-stages
 
 functions:
   # Flows
-  ottopilot-api-saveflow:
-    handler: src/handlers/flow-post-handler.SaveFlowHandler
+  ottopilot-api-createflow:
+    handler: src/handlers/flows/flows-post-handler.SaveFlowHandler
     events:
       - http:
           method: post
           path: flows
-  ottopilot-api-getflows:
-    handler: src/handlers/flow-get-handler.GetFlowsHandler
-    events:
-      - http:
-          method: get
-          path: flows
-  ottopilot-api-deleteflow:
-    handler: src/handlers/flow-delete-handler.DeleteFlowHandler
-    events:
-      - http:
-          method: delete
-          path: flows
-  
-  # Stages
-  ottopilot-api-savestage:
-    handler: src/handlers/stage-post-handler.SaveStageHandler
+  ottopilot-api-updateflow:
+    handler: src/handlers/flows/flows-post-handler.SaveFlowHandler
     events:
       - http:
           method: post
-          path: stages
-  ottopilot-api-getstages:
-    handler: src/handlers/stage-get-handler.GetStagesHandler
-    events:
-      - http:
-          method: get
-          path: stages
-  ottopilot-api-deletestage:
-    handler: src/handlers/stage-delete-handler.DeleteStagesHandler
-    events:
-      - http:
-          method: delete
-          path: stages
-
+          path: flows/{id}
 resources:
   Resources:
     StagesDynamoDbTable:

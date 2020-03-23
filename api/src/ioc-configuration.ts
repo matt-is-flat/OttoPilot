@@ -9,6 +9,8 @@ import { RequestToGetTextParametersConverter, RequestToLoadPageParametersConvert
 import { SaveLocallyResultParametersValidator } from './models/validators/result-parameter-validators';
 import { RequestToStoreLocallyResultParametersConverter } from './models/converters/result-parameter-converters';
 import { RequestToFlowConverter } from './models/converters/request-to-flow-converter';
+import { IValidator } from 'interfaces';
+import { StageValidatorFactory } from 'models/factories/stage-validator-factory';
 
 export class IocConfiguration {
   ConfigureIoc(): Container {
@@ -16,6 +18,7 @@ export class IocConfiguration {
 
     this.RegisterValidators(container);
     this.RegisterConverters(container);
+    this.RegisterFactories(container);
 
     return container;
   }
@@ -36,5 +39,11 @@ export class IocConfiguration {
     container.bind(Registrations.IRequestToStageParametersConverter).to(RequestToPrintVariableParametersConverter).whenTargetNamed(Opcodes.printVariable);
 
     container.bind(Registrations.IRequestToStageResultsConverter).to(RequestToStoreLocallyResultParametersConverter).whenTargetNamed(ResultCodes.saveLocal);
+  }
+
+  private RegisterFactories(container: Container): void {
+    let stageValidatorResolver = (stageCode: string) => { return container.getNamed<IValidator<any>>(Registrations.IStageValidator, stageCode) }
+    let stageValidatorFactory = new StageValidatorFactory(stageValidatorResolver);
+    container.bind(Registrations.IStageValidatorFactory).toConstantValue(stageValidatorFactory);
   }
 }

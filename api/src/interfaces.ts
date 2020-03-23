@@ -7,3 +7,7 @@ export interface IValidator<T> {
 export interface IConverter<TIn, TOut> {
   Convert(input: TIn): TOut
 }
+
+export interface IFactory<TIn, TOut> {
+  Create(input: TIn): TOut;
+}

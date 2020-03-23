@@ -1,9 +1,9 @@
 import * as uuid from 'uuid';
 
 import { Flow } from '@common/models/flow';
-import { DdbClient } from '../utils/ddb-client';
-import { TableNames } from '../../../common/constants';
-import { ExceptionMessages } from '../constants';
+import { DdbClient } from '@api/utils/ddb-client';
+import { TableNames } from '@common/constants';
+import { ExceptionMessages } from '@api/constants';
 
 const dynamoDb = DdbClient();
 
@@ -13,19 +13,35 @@ const dynamoDb = DdbClient();
  */
 export async function CreateFlow(flow: Flow): Promise<void> {
   const timestamp = new Date().getTime();
+  const flowId = uuid.v4();
 
-  const params = {
-    TableName: TableNames.flows,
+  const metadataParams = {
+    TableName: TableNames.flowMetadata,
     Item: {
-      id: uuid.v4(),
-      name: flow.name,
-      stages: flow.stages,
+      flowId: flowId,
+      name: flow.metadata.name,
       createdAt: timestamp,
-      updatedAt: timestamp
+      modifiedAt: timestamp
     }
   }
 
-  await dynamoDb.put(params).promise()
+  await dynamoDb.put(metadataParams).promise();
+
+  for (let stage of flow.stages) {
+    const flowStageParams = {
+      TableName: TableNames.flowStages,
+      Item: {
+        flowId: flowId,
+        stageId: uuid.v4(),
+        order: stage.order,
+        stageParameters: stage.stageParametes,
+        resultCode: stage.resultCode,
+        resultParameters: stage.resultParameters
+      }
+    }
+  
+    await dynamoDb.put(flowStageParams).promise()
+  }
 }
 
 /**

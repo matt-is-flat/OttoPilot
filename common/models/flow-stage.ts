@@ -1,6 +1,11 @@
-import { Stage } from './stage';
+import { IStageParameters, IResultParameters } from '../interfaces';
 
 export class FlowStage {
-  stageId: Stage;
+  flowId: string;
+  stageId: string;
   order: number;
+  stageCode: string;
+  stageParametes: IStageParameters;
+  resultCode: string;
+  resultParameters: IResultParameters
 }

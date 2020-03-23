@@ -5,11 +5,19 @@ import { injectable } from 'inversify';
 @injectable()
 export class RequestToFlowConverter implements IConverter<any, Flow> {
   Convert(input: any): Flow {
+    if (!input || !input.body || !input.pathParameters) {
+      throw new Error("Argument error");
+    }
+
+    let body = input.body;
+    let pathParameters = input.pathParameters;
+    let id = pathParameters.id;
+
     let result: Flow = {
-      id: input.id,
-      name: input.name,
-      stages: input.stages
-    };
+      id: id,
+      metadata: body.metadata,
+      stages: body.stages
+    }
 
     return result;
   }

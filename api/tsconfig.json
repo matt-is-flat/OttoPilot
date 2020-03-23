@@ -6,7 +6,7 @@
     "baseUrl": "src",
     "paths": {
       "@common/*": ["../../common/*"],
-      "@utils/*": ["./utils/*"]
+      "@api/*": ["./*"]
     },
     "moduleResolution": "node",
     "sourceMap": true,
