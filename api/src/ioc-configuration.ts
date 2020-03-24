@@ -10,7 +10,7 @@ import { SaveLocallyResultParametersValidator } from './models/validators/result
 import { RequestToStoreLocallyResultParametersConverter } from './models/converters/result-parameter-converters';
 import { RequestToFlowConverter } from './models/converters/request-to-flow-converter';
 import { IValidator } from 'interfaces';
-import { StageValidatorFactory } from 'models/factories/stage-validator-factory';
+import { StageValidatorFactory } from './models/factories/stage-validator-factory';
 
 export class IocConfiguration {
   ConfigureIoc(): Container {

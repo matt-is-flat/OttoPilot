@@ -18,20 +18,30 @@ provider:
         - dynamodb:PutItem
       Resource: "*"
   environment:
-    stagesTableName: ${self:custom.stagesTableName}
-    flowsTableName: ${self:custom.flowsTableName}
+    flowMetadataTableName: ${self:custom.flowMetadataTableName}
     flowStagesTableName: ${self:custom.flowStagesTableName}
     ddbRegion: 'localhost'
     ddbEndpoint: 'http://localhost:8000'
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  stagesTableName: ${self:custom.stage}-stages
-  flowsTableName: ${self:custom.stage}-flows
-  flowStagesTableName: ${self:custom.stage}-flow-stages
+  flowMetadataTableName: flow-metadata
+  flowStagesTableName: flow-stages
 
 functions:
   # Flows
+  ottopilot-api-getflow:
+    handler: src/handlers/flows/flows-get-handler.GetFlowsHandler
+    events:
+      - http:
+          method: get
+          path: flows/{id}
+  ottopilot-api-getallflows:
+    handler: src/handlers/flows/flows-get-handler.GetFlowsHandler
+    events:
+      - http:
+          method: get
+          path: flows
   ottopilot-api-createflow:
     handler: src/handlers/flows/flows-post-handler.SaveFlowHandler
     events:
