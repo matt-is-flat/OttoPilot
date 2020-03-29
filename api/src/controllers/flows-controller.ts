@@ -21,7 +21,7 @@ export async function CreateFlow(flow: Flow): Promise<void> {
     TableName: TableNames.flowMetadata,
     Item: {
       flowId: flowId,
-      name: flow.metadata.name,
+      flowName: flow.metadata.name,
       createdAt: timestamp,
       modifiedAt: timestamp
     }
@@ -59,18 +59,37 @@ export async function UpdateFlow(flow: Flow): Promise<void> {
     throw new Error(ExceptionMessages.ExistingFlowNotFound);
   }
 
-  const params = {
-    TableName: TableNames.flows,
+  const metadataParams = {
+    TableName: TableNames.flowMetadata,
     Key: {
-      id: existingRecord.id
+      flowId: flow.id
     },
-    Item: {
-      ...flow,
-      updatedAt: timestamp
+    UpdateExpression: "set flowName = :flowName, modifiedAt = :modifiedAt",
+    ExpressionAttributeValues: {
+      ":flowName": flow.metadata.name,
+      ":modifiedAt": timestamp
     }
   };
 
-  await dynamoDb.update(params).promise();
+  console.log(metadataParams);
+
+  let result = await dynamoDb.update(metadataParams).promise();
+  console.log(result);
+  
+  for (let stage of flow.stages) {
+    const stageParams = {
+      TableName: TableNames.flowStages,
+      Key: {
+        flowId: flow.id,
+        order: stage.order
+      },
+      Item: {
+        ...stage
+      }
+    }
+
+    await dynamoDb.update(stageParams).promise();
+  }
 }
 
 /**
@@ -122,8 +141,12 @@ export async function GetFlow(id: string): Promise<Flow> {
 
   const flowStageParams = {
     TableName: TableNames.flowStages,
-    Key: {
-      flowId: id
+    KeyConditionExpression: '#flowId = :flowId',
+    ExpressionAttributeNames: {
+      '#flowId': 'flowId'
+    },
+    ExpressionAttributeValues: {
+      ':flowId': id
     }
   };
 

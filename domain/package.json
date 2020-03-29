@@ -1,0 +1,8 @@
+{
+  "name": "ottopilot-domain",
+  "version": "1.0.0",
+  "description": "Business logic for all non flow-execution related functions of OttoPilot",
+  "main": "index.js",
+  "author": "Matt Astachnowicz",
+  "license": "MIT"
+}

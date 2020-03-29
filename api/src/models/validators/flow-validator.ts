@@ -18,12 +18,17 @@ export class FlowValidator implements IValidator<any> {
     let result: ValidationResult = { isValid: true, validationErrors: [] };
     let flow = input as Flow;
 
-    if (!flow.metadata.name || flow.metadata.name.trim().length === 0) {
+    if (!flow.metadata || !flow.stages) {
+      result.isValid = false;
+      result.validationErrors.push('Flow must have metadata and stages objects')
+    }
+
+    if (!flow.metadata?.name || flow.metadata?.name.trim().length === 0) {
       result.isValid = false;
       result.validationErrors.push('Flow must have a name');
     }
 
-    flow.stages.forEach(stage => {
+    flow.stages?.forEach(stage => {
       let stageValidator = this._stageValidatorFactory.Create(stage.stageCode);
       let stageValidationResult = stageValidator.Validate(stage);
 
