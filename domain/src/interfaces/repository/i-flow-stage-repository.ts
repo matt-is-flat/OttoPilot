@@ -1,4 +1,4 @@
-import { IGenericRepository } from '../../interfaces';
-import { FlowStage } from '../../models';
+import { IGenericRepository } from '../../interfaces/repository';
+import { FlowStage, FlowStageId } from '../../business-objects';
 
-export default interface IFlowStageRepository extends IGenericRepository<FlowStage, string> { }
+export default interface IFlowStageRepository extends IGenericRepository<FlowStage, FlowStageId> { }

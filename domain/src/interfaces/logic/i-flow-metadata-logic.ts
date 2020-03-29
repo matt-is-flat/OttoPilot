@@ -1,4 +1,4 @@
-import { IBaseLogic } from '../../interfaces';
-import FlowMetadata from '../../models/flow-metadata';
+import { IBaseLogic } from '../../interfaces/logic';
+import { FlowMetadata } from '../../business-objects';
 
 export default interface IFlowMetadataLogic extends IBaseLogic<FlowMetadata, string>{}

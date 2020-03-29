@@ -1,5 +1,6 @@
-import { IFlowMetadataLogic, IFlowMetadataRepository } from '../../interfaces';
-import { FlowMetadata } from '../../models';
+import { IFlowMetadataLogic } from '../../interfaces/logic';
+import { IFlowMetadataRepository } from '../../interfaces/repository';
+import { FlowMetadata } from '../../business-objects';
 
 export default class FlowMetadataLogic implements IFlowMetadataLogic {
     private readonly flowMetadataRepository: IFlowMetadataRepository;
@@ -9,7 +10,7 @@ export default class FlowMetadataLogic implements IFlowMetadataLogic {
     }
 
     async Save(data: FlowMetadata): Promise<void> {
-        if (data.id && data.id?.length > 0) {
+        if (data.flowId && data.flowId?.length > 0) {
             return await this.flowMetadataRepository.Update(data);
         }
 

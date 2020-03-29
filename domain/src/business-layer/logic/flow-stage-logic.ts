@@ -1,5 +1,6 @@
-import { IFlowStageRepository, IFlowStageLogic } from '../../interfaces';
-import { FlowStage } from '../../models';
+import { IFlowStageLogic } from '../../interfaces/logic';
+import { IFlowStageRepository } from '../../interfaces/repository';
+import { FlowStage } from '../../business-objects';
 
 export default class FlowStageLogic implements IFlowStageLogic {
     private readonly flowStageRepository: IFlowStageRepository;
@@ -9,7 +10,7 @@ export default class FlowStageLogic implements IFlowStageLogic {
     }
 
     async Save(data: FlowStage): Promise<void> {
-        if (data.id && data.id?.length > 0) {
+        if (data.flowId && data.flowId?.length > 0) {
             return await this.flowStageRepository.Update(data);
         }
 
