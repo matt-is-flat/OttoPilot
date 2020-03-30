@@ -1,5 +1,6 @@
 import { IFlowLogic, IFlowMetadataLogic, IFlowStageLogic } from '../../interfaces/logic';
 import { Flow, FlowStage, FlowStageId } from '../../business-objects';
+import { FlowStageFilters } from 'business-objects/search-filters';
 
 export default class FlowLogic implements IFlowLogic {
     private readonly flowMetadataLogic: IFlowMetadataLogic;
@@ -40,13 +41,14 @@ export default class FlowLogic implements IFlowLogic {
         return result;
     }
 
-    async Get(filters: Flow): Promise<Flow[]> {
+    async Get(filters: FlowStageFilters): Promise<Flow[]> {
         throw new Error("Method not implemented.");
     }
 
     private async GetStagesByFlowId(flowId: string): Promise<FlowStage[]> {
-        let stageFilters = new FlowStage();
-        stageFilters.flowId = flowId;
+        let stageFilters: FlowStageFilters = {
+            flowId: flowId
+        };
 
         return await this.flowStageLogic.Get(stageFilters);
     }

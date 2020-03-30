@@ -1,6 +1,6 @@
-import { FlowMetadata, FlowStage } from '../models';
+import { FlowMetadata, FlowStage } from './';
 
-export default class Flow {
+export default interface Flow {
     id: string;
     metadata: FlowMetadata;
     stages: FlowStage[];

@@ -1,9 +1,9 @@
 import { IStageParameters, IStageResults } from "../interfaces";
 
-export default class FlowStage {
+export default interface FlowStage {
     flowId: string;
-    stageId: string;
     order: number;
+    stageId: string;
     stageCode: string;
     stageParametes: IStageParameters;
     resultCode: string;

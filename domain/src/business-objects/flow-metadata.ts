@@ -1,4 +1,4 @@
-export default class FlowMetadata {
+export default interface FlowMetadata {
     flowId: string;
     flowName: string;
     createdAt: number;

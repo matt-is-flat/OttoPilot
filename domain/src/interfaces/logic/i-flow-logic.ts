@@ -1,5 +1,5 @@
-import { IBaseLogic } from '../../interfaces';
-import { Flow } from '../../models';
+import { IBaseLogic } from '../../interfaces/logic';
+import { Flow } from '../../business-objects';
+import { FlowFilters } from '../../business-objects/search-filters';
 
-export default interface IFlowLogic extends IBaseLogic<Flow, string> {
-}
+export default interface IFlowLogic extends IBaseLogic<Flow, string, FlowFilters> { }

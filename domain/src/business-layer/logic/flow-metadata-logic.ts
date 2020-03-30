@@ -1,6 +1,7 @@
 import { IFlowMetadataLogic } from '../../interfaces/logic';
 import { IFlowMetadataRepository } from '../../interfaces/repository';
 import { FlowMetadata } from '../../business-objects';
+import { FlowMetadataFilters } from 'business-objects/search-filters';
 
 export default class FlowMetadataLogic implements IFlowMetadataLogic {
     private readonly flowMetadataRepository: IFlowMetadataRepository;
@@ -25,7 +26,7 @@ export default class FlowMetadataLogic implements IFlowMetadataLogic {
         return await this.flowMetadataRepository.GetById(id);
     }
     
-    async Get(filters: FlowMetadata): Promise<FlowMetadata[]> {
+    async Get(filters: FlowMetadataFilters): Promise<FlowMetadata[]> {
         return await this.flowMetadataRepository.Get(filters);
     }
 }
