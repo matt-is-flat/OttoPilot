@@ -1,31 +1,23 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
-  "main": "handler.js",
-  "scripts": {
-    "build": "tsc",
-    "deploy": "npm run build && sls deploy",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "index.js",
+  "license": "MIT",
   "dependencies": {
-    "@types/aws-sdk": "^2.7.0",
-    "@types/uuid": "^3.4.7",
-    "aws-sdk": "^2.610.0",
+    "aws-sdk": "^2.648.0",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13",
-    "serverless-offline": "^6.0.0-alpha.65",
-    "source-map-support": "^0.5.10",
-    "uuid": "^3.4.0"
+    "source-map-support": "^0.5.16",
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.17",
-    "@types/node": "^13.7.4",
-    "serverless-webpack": "^5.2.0",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.2.4",
-    "webpack": "^4.29.0"
-  },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
-  "license": "MIT"
+    "@types/aws-lambda": "^8.10.46",
+    "@types/node": "^13.9.5",
+    "@types/uuid": "^7.0.2",
+    "serverless-offline": "^6.1.2",
+    "serverless-webpack": "^5.3.1",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1"
+  }
 }

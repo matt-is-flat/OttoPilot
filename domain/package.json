@@ -8,5 +8,9 @@
   "devDependencies": {
     "@types/node": "^13.9.5",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
   }
 }

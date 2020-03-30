@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2017"
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@common/*": ["../../common/*"],
+      "@api/*": ["./*"],
+      "@database/*": ["../../database/src/*"],
+      "@domain/*": ["../../domain/src/*"]
+    },
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es2017",
+    "outDir": "lib",
+    "experimentalDecorators": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

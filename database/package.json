@@ -8,6 +8,11 @@
   },
   "dependencies": {
     "@types/node": "^13.9.5",
-    "aws-sdk": "^2.648.0"
+    "aws-sdk": "^2.648.0",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13"
+  },
+  "scripts": {
+    "build": "tsc --project ../domain/tsconfig.json && tsc"
   }
 }

@@ -42,6 +42,18 @@ functions:
       - http:
           method: get
           path: flows
+  ottopilot-api-createflow:
+    handler: src/handlers/flows/flows-post-handler.SaveFlowHandler
+    events:
+      - http:
+          method: post
+          path: flows
+  ottopilot-api-updateflow:
+    handler: src/handlers/flows/flows-post-handler.SaveFlowHandler
+    events:
+      - http:
+          method: post
+          path: flows/{id}
 resources:
   Resources:
     StagesDynamoDbTable:

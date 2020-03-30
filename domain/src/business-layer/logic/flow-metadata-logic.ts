@@ -11,7 +11,9 @@ export default class FlowMetadataLogic implements IFlowMetadataLogic {
     }
 
     async Save(data: FlowMetadata): Promise<void> {
-        if (data.flowId && data.flowId?.length > 0) {
+        let existingRecord = await this.GetById(data.flowId);
+
+        if (existingRecord) {
             return await this.flowMetadataRepository.Update(data);
         }
 
