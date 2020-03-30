@@ -1,6 +1,7 @@
 import { Container } from 'inversify';
 import { IFlowMetadataLogic, IFlowStageLogic } from './interfaces/logic';
 import { FlowMetadataLogic, FlowStageLogic } from './business-layer/logic';
+import { TYPES as T } from './constants';
 
 export class IocConfiguration {
     RegisterIoc(): Container {
@@ -13,7 +14,7 @@ export class IocConfiguration {
 
     private RegisterLogicClasses(container: Container): void {
         
-        container.bind<IFlowMetadataLogic>("IFlowMetadataLogic").to(FlowMetadataLogic);
-        container.bind<IFlowStageLogic>("IFlowStageLogic").to(FlowStageLogic);
+        container.bind<IFlowMetadataLogic>(T.IFlowMetadataLogic).to(FlowMetadataLogic);
+        container.bind<IFlowStageLogic>(T.IFlowStageLogic).to(FlowStageLogic);
     }
 }

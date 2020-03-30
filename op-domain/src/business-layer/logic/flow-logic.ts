@@ -41,7 +41,7 @@ export default class FlowLogic implements IFlowLogic {
         return result;
     }
 
-    async Get(filters: FlowStageFilters): Promise<Flow[]> {
+    async Get(filters?: FlowStageFilters): Promise<Flow[]> {
         throw new Error("Method not implemented.");
     }
 

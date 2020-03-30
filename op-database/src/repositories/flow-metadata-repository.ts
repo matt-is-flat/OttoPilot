@@ -3,7 +3,9 @@ import { FlowMetadata } from '@domain/business-objects';
 import { FlowMetadataFilters } from '@domain/business-objects/search-filters';
 import { DdbClient } from '../utils/ddb-client';
 import { TableNames } from '@domain/constants';
+import { injectable } from 'inversify';
 
+@injectable()
 export default class FlowMetadataRepository implements IFlowMetadataRepository {
     async Insert(data: FlowMetadata): Promise<void> {
         const timestamp = new Date().getTime();

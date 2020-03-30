@@ -25,11 +25,14 @@ export default class FlowStageLogic implements IFlowStageLogic {
     }
     
     GetById(id: FlowStageId): Promise<FlowStage> {
-        console.log("FLOW STAGE")
         return this.flowStageRepository.GetById(id);
     }
 
-    Get(filters: FlowStageFilters): Promise<FlowStage[]> {
-        return this.flowStageRepository.Get(filters);
+    Get(filters?: FlowStageFilters): Promise<FlowStage[]> {
+        if (filters) {
+            return this.flowStageRepository.Get(filters);
+        }
+
+        return this.flowStageRepository.Get({});
     }
 }

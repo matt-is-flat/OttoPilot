@@ -2,13 +2,16 @@ import { IFlowMetadataLogic } from '../../interfaces/logic';
 import { IFlowMetadataRepository } from '../../interfaces/repository';
 import { FlowMetadata } from '../../business-objects';
 import { FlowMetadataFilters } from '../../business-objects/search-filters';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
+import { TYPES as T } from '../../constants';
 
 @injectable()
 export default class FlowMetadataLogic implements IFlowMetadataLogic {
     private readonly flowMetadataRepository: IFlowMetadataRepository;
     
-    constructor(flowMetadataRepository: IFlowMetadataRepository) {
+    constructor(
+        @inject(T.IFlowMetadataRepository) flowMetadataRepository: IFlowMetadataRepository
+    ) {
         this.flowMetadataRepository = flowMetadataRepository;
     }
 
@@ -27,12 +30,14 @@ export default class FlowMetadataLogic implements IFlowMetadataLogic {
     }
     
     async GetById(id: string): Promise<FlowMetadata> {
-        console.log("FLOW METADATA")
         return await this.flowMetadataRepository.GetById(id);
     }
     
-    async Get(filters: FlowMetadataFilters): Promise<FlowMetadata[]> {
+    async Get(filters?: FlowMetadataFilters): Promise<FlowMetadata[]> {
+        if (filters) {
+            return await this.flowMetadataRepository.Get(filters);
+        }
 
-        return await this.flowMetadataRepository.Get(filters);
+        return await this.flowMetadataRepository.Get({});
     }
 }
