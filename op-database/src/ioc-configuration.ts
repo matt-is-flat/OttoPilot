@@ -4,7 +4,7 @@ import { FlowMetadataRepository } from './repositories';
 import { TYPES as T } from '@domain/constants';
 
 export class IocConfiguration {
-    RegisterContainer(): Container {
+    RegisterIoc(): Container {
         let container = new Container();
 
         this.RegisterRepositories(container);

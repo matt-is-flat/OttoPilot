@@ -8,6 +8,9 @@ export const TableNames = {
 export const TYPES = {
   IFlowMetadataLogic: "IFlowMetadataLogic",
   IFlowStageLogic: "IFlowStageLogic",
+  IFlowLogic: "IFlowLogic",
   IFlowMetadataRepository: "IFlowMetadataRepository",
-  IFlowStageRepository: "IFlowStageRepository"
+  IFlowStageRepository: "IFlowStageRepository",
+  "IValidator<any>": "IValidator<any>",
+  "IConverter<any, Flow>": "IConverter<any, Flow>"
 }
