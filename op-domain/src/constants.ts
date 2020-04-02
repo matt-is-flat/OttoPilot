@@ -12,5 +12,8 @@ export const TYPES = {
   IFlowMetadataRepository: "IFlowMetadataRepository",
   IFlowStageRepository: "IFlowStageRepository",
   "IValidator<any>": "IValidator<any>",
-  "IConverter<any, Flow>": "IConverter<any, Flow>"
+  "IConverter<any, Flow>": "IConverter<any, Flow>",
+  "IConverter<any, FlowMetadata>": "IConverter<any, FlowMetadata>",
+  "IConverter<any, FlowStage>": "IConverter<any, FlowStage>",
+  "IFactory<string, IValidator<any>>": "IFactory<string, IValidator<any>>"
 }

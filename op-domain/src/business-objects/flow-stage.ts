@@ -5,7 +5,7 @@ export default interface FlowStage {
     order: number;
     stageId: string;
     stageCode: string;
-    stageParametes: IStageParameters;
+    stageParameters: IStageParameters;
     resultCode: string;
     resultParameters: IStageResults;
 }
