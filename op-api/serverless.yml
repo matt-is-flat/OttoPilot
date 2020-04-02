@@ -31,13 +31,13 @@ custom:
 functions:
   # Flows
   ottopilot-api-getflow:
-    handler: src/handlers/flows/flows-get-handler.GetFlowsHandler
+    handler: src/handlers/index.GetFlowsHandler
     events:
       - http:
           method: get
           path: flows/{id}
   ottopilot-api-getallflows:
-    handler: src/handlers/flows/flows-get-handler.GetFlowsHandler
+    handler: src/handlers/index.GetFlowsHandler
     events:
       - http:
           method: get

@@ -1,14 +1,17 @@
 import { IFlowHandler } from '../interfaces';
 import { APIGatewayProxyHandler } from 'aws-lambda';
+import { IocConfiguration as ApiIoc } from 'ioc-configuration';
 import { IocConfiguration as DomainIoc } from '@domain/ioc-configuration';
 import { IocConfiguration as DbIoc } from '@database/ioc-configuration';
 import { Container } from 'inversify';
 import { TYPES as T } from '../constants';
 import { RequestHelper, ResponseHelper } from 'helpers';
 
+let apiContainer = new ApiIoc().RegisterIoc();
 let domainContainer = new DomainIoc().RegisterIoc();
 let dbContainer = new DbIoc().RegisterIoc();
 let iocContainer = Container.merge(domainContainer, dbContainer);
+iocContainer = Container.merge(iocContainer, apiContainer);
 
 export const SaveFlowHandler: APIGatewayProxyHandler = async (event, _) => {
     let body: any;
@@ -33,3 +36,5 @@ export const GetFlowsHandler: APIGatewayProxyHandler = async (event, _) => {
 
     return await flowHandler.GetFlows({});
 }
+
+export { default as FlowHandler } from './flow-handler';

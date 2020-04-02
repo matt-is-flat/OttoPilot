@@ -1,12 +1,13 @@
 import { IValidator, IConverter } from '@domain/interfaces';
 import { Flow } from '@domain/business-objects';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { TYPES as T } from '@domain/constants';
 import { ResponseHelper } from '../helpers';
 import { JsonResponse } from '../business-objects';
 import { IFlowLogic } from '@domain/interfaces/logic';
 import { FlowFilters } from '@domain/business-objects/search-filters';
 
+@injectable()
 export default class FlowHandler {
     private flowRequestValidator: IValidator<any>;
     private requestToFlowConverter: IConverter<any, Flow>;
