@@ -7,6 +7,10 @@ import { injectable } from 'inversify';
 
 @injectable()
 export default class FlowMetadataRepository implements IFlowMetadataRepository {
+    constructor() {
+        console.log("Creating flow metadata repo")
+    }
+
     async Insert(data: FlowMetadata): Promise<void> {
         const timestamp = new Date().getTime();
         data.createdAt = timestamp;

@@ -27,7 +27,9 @@ export const SaveFlowHandler: APIGatewayProxyHandler = async (event, _) => {
 }
 
 export const GetFlowsHandler: APIGatewayProxyHandler = async (event, _) => {
+    console.log(1)
     let flowHandler = iocContainer.get<IFlowHandler>(T.IFlowHandler);
+    console.log(2)
     let id = event.pathParameters?.id.trim();
     
     if (id && id?.length > 0) {

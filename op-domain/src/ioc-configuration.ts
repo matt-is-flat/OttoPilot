@@ -1,13 +1,13 @@
 import 'reflect-metadata';
 import { TYPES as T } from './constants';
 import { Container } from 'inversify';
-import { IFlowMetadataLogic, IFlowStageLogic } from './interfaces/logic';
-import { FlowMetadataLogic, FlowStageLogic } from './business-layer/logic';
+import { IFlowMetadataLogic, IFlowStageLogic, IFlowLogic } from './interfaces/logic';
+import { FlowMetadataLogic, FlowStageLogic, FlowLogic } from './business-layer/logic';
 import { IValidator, IConverter, IFactory } from './interfaces';
-import { FlowValidator } from './business-layer/validators';
+import { FlowValidator, FlowMetadataValidator } from './business-layer/validators';
 import { RequestToFlowConverter, RequestToFlowMetadataConverter, RequestToFlowStageConverter } from './business-layer/converters';
 import { Flow, FlowMetadata, FlowStage } from './business-objects';
-import StageValidatorFactory from 'business-layer/factories/stage-validator-factory';
+import { StageValidatorFactory } from './business-layer/factories';
 
 export class IocConfiguration {
     RegisterIoc(): Container {
@@ -24,10 +24,12 @@ export class IocConfiguration {
     private RegisterLogicClasses(container: Container): void {
         container.bind<IFlowMetadataLogic>(T.IFlowMetadataLogic).to(FlowMetadataLogic);
         container.bind<IFlowStageLogic>(T.IFlowStageLogic).to(FlowStageLogic);
+        container.bind<IFlowLogic>(T.IFlowLogic).to(FlowLogic);
     }
 
     private RegisterValidators(container: Container): void {
-        container.bind<IValidator<any>>(T["IValidator<Flow>"]).to(FlowValidator)
+        container.bind<IValidator<Flow>>(T["IValidator<Flow>"]).to(FlowValidator);
+        container.bind<IValidator<FlowMetadata>>(T["IValidator<FlowMetadata>"]).to(FlowMetadataValidator);
     }
 
     private RegisterConverters(container: Container): void {
@@ -37,8 +39,8 @@ export class IocConfiguration {
     }
 
     private RegisterFactories(container: Container): void {
-        let validatorResolver = (input: string) => container.getNamed<IValidator<any>>(T["IValidator<Stage>"], input);
+        let validatorResolver = (input: string) => container.getNamed<IValidator<FlowStage>>(T["IValidator<FlowStage>"], input);
         let stageValidatorFactory = new StageValidatorFactory(validatorResolver);
-        container.bind<IFactory<string, IValidator<any>>>(T["IFactory<string, IValidator<any>>"]).toConstantValue(stageValidatorFactory);
+        container.bind<IFactory<string, IValidator<FlowStage>>>(T["IFactory<string, IValidator<FlowStage>>"]).toConstantValue(stageValidatorFactory);
     }
 }

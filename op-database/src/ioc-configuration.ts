@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
-import { IFlowMetadataRepository } from '@domain/interfaces/repository';
-import { FlowMetadataRepository } from './repositories';
+import { IFlowMetadataRepository, IFlowStageRepository } from '@domain/interfaces/repository';
+import { FlowMetadataRepository, FlowStageRepository } from './repositories';
 import { TYPES as T } from '@domain/constants';
 import 'reflect-metadata';
 
@@ -15,5 +15,6 @@ export class IocConfiguration {
 
     private RegisterRepositories(container: Container): void {
         container.bind<IFlowMetadataRepository>(T.IFlowMetadataRepository).to(FlowMetadataRepository);
+        container.bind<IFlowStageRepository>(T.IFlowStageRepository).to(FlowStageRepository);
     }
 }

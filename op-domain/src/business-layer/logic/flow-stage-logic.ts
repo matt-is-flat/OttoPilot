@@ -2,13 +2,16 @@ import { IFlowStageLogic } from '../../interfaces/logic';
 import { IFlowStageRepository } from '../../interfaces/repository';
 import { FlowStage, FlowStageId } from '../../business-objects';
 import { FlowStageFilters } from '../../business-objects/search-filters';
-import { injectable } from 'inversify';
+import { TYPES as T } from '../../constants';
+import { injectable, inject } from 'inversify';
 
 @injectable()
 export default class FlowStageLogic implements IFlowStageLogic {
     private readonly flowStageRepository: IFlowStageRepository;
 
-    constructor(flowStageRepository: IFlowStageRepository) {
+    constructor (
+        @inject(T.IFlowStageRepository) flowStageRepository: IFlowStageRepository
+    ) {
         this.flowStageRepository = flowStageRepository;
     }
 

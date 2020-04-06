@@ -9,9 +9,10 @@ export default class FlowValidator implements IValidator<Flow> {
     private stageValidatorFactory: IFactory<string, IValidator<any>>;
 
     constructor(
-        @inject(T["IValidator<FlowMetadata>"])
+        @inject(T["IValidator<FlowMetadata>"]) flowMetadataValidator: IValidator<FlowMetadata>,
         @inject(T["IFactory<string, IValidator<FlowStage>>"]) stageValidatorFactory: IFactory<string, IValidator<any>>
     ) {
+        this.flowMetadataValidator = flowMetadataValidator;
         this.stageValidatorFactory = stageValidatorFactory;
     }
 

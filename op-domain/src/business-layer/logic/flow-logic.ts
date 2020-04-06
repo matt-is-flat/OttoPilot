@@ -1,12 +1,18 @@
 import { IFlowLogic, IFlowMetadataLogic, IFlowStageLogic } from '../../interfaces/logic';
 import { Flow, FlowStage, FlowStageId } from '../../business-objects';
 import { FlowStageFilters } from '../../business-objects/search-filters';
+import { TYPES as T } from '../../constants';
+import { injectable, inject } from 'inversify';
 
+@injectable()
 export default class FlowLogic implements IFlowLogic {
     private readonly flowMetadataLogic: IFlowMetadataLogic;
     private readonly flowStageLogic: IFlowStageLogic;
 
-    constructor(flowMetadataLogic: IFlowMetadataLogic, flowStageLogic: IFlowStageLogic) {
+    constructor(
+        @inject(T.IFlowMetadataLogic) flowMetadataLogic: IFlowMetadataLogic,
+        @inject(T.IFlowStageLogic) flowStageLogic: IFlowStageLogic
+    ) {
         this.flowMetadataLogic = flowMetadataLogic;
         this.flowStageLogic = flowStageLogic;
     }
@@ -42,7 +48,22 @@ export default class FlowLogic implements IFlowLogic {
     }
 
     async Get(filters?: FlowStageFilters): Promise<Flow[]> {
-        throw new Error("Method not implemented.");
+        let allFlowStages = await this.flowStageLogic.Get();
+        let allMetadata = await this.flowMetadataLogic.Get();
+
+        let result = new Array<Flow>();
+
+        for (let metadata of allMetadata) {
+            let flowStages = allFlowStages.filter(fs => fs.flowId === metadata.flowId);
+
+            result.push({
+                id: metadata.flowId,
+                metadata: metadata,
+                stages: flowStages
+            });
+        }
+
+        return result;
     }
 
     private async GetStagesByFlowId(flowId: string): Promise<FlowStage[]> {
