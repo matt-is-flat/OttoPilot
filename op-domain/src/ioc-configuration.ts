@@ -27,7 +27,7 @@ export class IocConfiguration {
     }
 
     private RegisterValidators(container: Container): void {
-        container.bind<IValidator<any>>(T["IValidator<any>"]).to(FlowValidator)
+        container.bind<IValidator<any>>(T["IValidator<Flow>"]).to(FlowValidator)
     }
 
     private RegisterConverters(container: Container): void {
@@ -37,7 +37,7 @@ export class IocConfiguration {
     }
 
     private RegisterFactories(container: Container): void {
-        let validatorResolver = (input: string) => container.getNamed<IValidator<any>>(T["IValidator<any>"], input);
+        let validatorResolver = (input: string) => container.getNamed<IValidator<any>>(T["IValidator<Stage>"], input);
         let stageValidatorFactory = new StageValidatorFactory(validatorResolver);
         container.bind<IFactory<string, IValidator<any>>>(T["IFactory<string, IValidator<any>>"]).toConstantValue(stageValidatorFactory);
     }

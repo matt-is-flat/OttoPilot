@@ -9,12 +9,12 @@ import { FlowFilters } from '@domain/business-objects/search-filters';
 
 @injectable()
 export default class FlowHandler {
-    private flowRequestValidator: IValidator<any>;
+    private flowRequestValidator: IValidator<Flow>;
     private requestToFlowConverter: IConverter<any, Flow>;
     private flowLogic: IFlowLogic;
 
     constructor(
-        @inject(T["IValidator<any>"]) flowRequestValidator: IValidator<any>,
+        @inject(T["IValidator<Flow>"]) flowRequestValidator: IValidator<Flow>,
         @inject(T["IConverter<any, Flow>"]) requestToFlowConverter: IConverter<any, Flow>,
         @inject(T.IFlowLogic) flowLogic: IFlowLogic,
     ) {

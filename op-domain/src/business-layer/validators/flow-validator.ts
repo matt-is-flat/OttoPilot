@@ -1,14 +1,16 @@
 import { IValidator, IFactory } from '../../interfaces';
-import { Flow, ValidationResult, FlowStage } from '../../business-objects';
+import { Flow, ValidationResult, FlowStage, FlowMetadata } from '../../business-objects';
 import { TYPES as T } from '../../constants';
 import { inject, injectable } from 'inversify';
 
 @injectable()
-export default class FlowValidator implements IValidator<any> {
+export default class FlowValidator implements IValidator<Flow> {
+    private flowMetadataValidator: IValidator<FlowMetadata>;
     private stageValidatorFactory: IFactory<string, IValidator<any>>;
 
     constructor(
-        @inject(T["IFactory<string, IValidator<any>>"]) stageValidatorFactory: IFactory<string, IValidator<any>>
+        @inject(T["IValidator<FlowMetadata>"])
+        @inject(T["IFactory<string, IValidator<FlowStage>>"]) stageValidatorFactory: IFactory<string, IValidator<any>>
     ) {
         this.stageValidatorFactory = stageValidatorFactory;
     }
